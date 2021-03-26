@@ -5,6 +5,7 @@ import HeroImage from './elements/HeroImage';
 import LoadMore from './elements/LoadMore';
 import MovieThumb from './elements/MovieThumb';
 import SearchBar from './elements/SearchBar';
+import Spinner from './elements/Spinner';
 
 import { useFetchMovies } from './hooks/useFetchMovies';
 
@@ -13,6 +14,9 @@ import { IMAGE_BASE_URL, BACKDROP_SIZE } from '../config';
 const Home = () => {
   const [{ state, loading, error }, fetchMovies] = useFetchMovies();
   console.log({ state });
+
+  if (error) return <div>Oops! There's nothing here...</div>;
+  if (!state.movies[0]) return <Spinner />;
 
   return (
     <>
@@ -24,6 +28,7 @@ const Home = () => {
       <SearchBar />
       <Grid />
       <MovieThumb />
+      <Spinner />
       <LoadMore />
     </>
   );
