@@ -8,13 +8,19 @@ import SearchBar from './elements/SearchBar';
 
 import { useFetchMovies } from './hooks/useFetchMovies';
 
+import { IMAGE_BASE_URL, BACKDROP_SIZE } from '../config';
+
 const Home = () => {
   const [{ state, loading, error }, fetchMovies] = useFetchMovies();
   console.log({ state });
 
   return (
     <>
-      <HeroImage />
+      <HeroImage
+        image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.heroImage.backdrop_path}`}
+        title={state.heroImage.original_title}
+        text={state.heroImage.overview}
+      />
       <SearchBar />
       <Grid />
       <MovieThumb />
