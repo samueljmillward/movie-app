@@ -9,7 +9,13 @@ import Spinner from './elements/Spinner';
 
 import { useFetchMovies } from './hooks/useFetchMovies';
 
-import { IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from '../config';
+import {
+  IMAGE_BASE_URL,
+  BACKDROP_SIZE,
+  POSTER_SIZE,
+  API_URL,
+  API_KEY,
+} from '../config';
 
 import NoImage from './images/no_image.jpg';
 
@@ -23,6 +29,18 @@ const Home = () => {
     fetchMovies,
   ] = useFetchMovies();
   const [searchTerm, setSearchTerm] = useState('');
+
+  const loadMoreMovies = () => {
+    const searchEndpoint = `${API_URL}search/movie?api_key=${API_KEY}&query=${searchTerm}&page=${
+      currentPage + 1
+    }`;
+    const popularEndpoint = `${API_URL}movie/popular?api_key=${API_KEY}&page=${
+      currentPage + 1
+    }`;
+    const endpoint = searchTerm ? searchEndpoint : popularEndpoint;
+
+    fetchMovies(endpoint);
+  };
 
   if (error) return <div>Oops! There's nothing here...</div>;
   if (!movies[0]) return <Spinner />;
@@ -50,9 +68,10 @@ const Home = () => {
           />
         ))}
       </Grid>
-      <MovieThumb />
-      <Spinner />
-      <LoadMore />
+      {loading && <Spinner />}
+      {currentPage < totalPages && !loading && (
+        <LoadMore text="Load More" callback={loadMoreMovies} />
+      )}
     </>
   );
 };

@@ -1,7 +1,11 @@
 import React from 'react';
 
-const LoadMore = () => {
-  return <div>Load More Button</div>;
-};
+import { StyledLoadMore } from '../styles/StyledLoadMore';
+
+const LoadMore = ({ text, callback }) => (
+  <StyledLoadMore type="button" onClick={callback}>
+    {text}
+  </StyledLoadMore>
+);
 
 export default LoadMore;
