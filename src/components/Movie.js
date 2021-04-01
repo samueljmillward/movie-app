@@ -1,3 +1,20 @@
 import React from 'react';
 
-export const Movie = ({ movieId }) => <div>Movie: {movieId}</div>;
+import Actor from './elements/Actor';
+import Navigation from './elements/Navigation';
+import MovieInfo from './elements/MovieInfo';
+import MovieInfoBar from './elements/MovieInfoBar';
+import Grid from './elements/Grid';
+import Spinner from './elements/Spinner';
+
+export const Movie = ({ movieId }) => (
+  <>
+    <Navigation />
+    <MovieInfo />
+    <MovieInfoBar />
+    <Grid>
+      <Actor />
+    </Grid>
+    <Spinner />
+  </>
+);
