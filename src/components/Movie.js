@@ -9,19 +9,23 @@ import Spinner from './elements/Spinner';
 
 import useFetchInfo from './hooks/useFetchInfo';
 
-export const Movie = ({ movieId }) => {
+const Movie = ({ movieId }) => {
   const [movie, loading, error] = useFetchInfo(movieId);
-  console.log(movie);
 
+  if (error) return <div>Something went wrong...</div>;
+  if (loading) return <Spinner />;
   return (
     <>
-      <Navigation />
-      <MovieInfo />
-      <MovieInfoBar />
-      <Grid>
-        <Actor />
-      </Grid>
-      <Spinner />
+      <Navigation movie={movie.original_title} />
+      <MovieInfo movie={movie} />
+      <MovieInfoBar
+        time={movie.runtime}
+        budget={movie.budget}
+        revenue={movie.revenue}
+      />
+      <Grid />
     </>
   );
 };
+
+export default Movie;

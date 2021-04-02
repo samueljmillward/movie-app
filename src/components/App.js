@@ -4,7 +4,7 @@ import { Router } from '@reach/router';
 import { GlobalStyle } from './styles/GlobalStyle';
 import Header from './elements/Header';
 import Home from './Home';
-import { Movie } from './Movie';
+import Movie from './Movie';
 import { NotFound } from './NotFound';
 
 const App = () => (
